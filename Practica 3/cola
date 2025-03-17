@@ -1,0 +1,36 @@
+class Cola:
+    def _init_(self, n):
+        self.arreglo = [0] * n  # Arreglo de tamaño n
+        self.inicio = 0  # Índice del frente
+        self.fin = -1  # Índice del final
+        self.n = n  # Capacidad de la cola
+        self.cantidad = 0  # Número de elementos en la cola
+
+    def insert(self, e):
+        if self.isFull():
+            raise OverflowError("Cola llena")
+        self.fin = (self.fin + 1) % self.n
+        self.arreglo[self.fin] = e
+        self.cantidad += 1
+
+    def remove(self):
+        if self.isEmpty():
+            raise IndexError("Cola vacía")
+        elemento = self.arreglo[self.inicio]
+        self.inicio = (self.inicio + 1) % self.n
+        self.cantidad -= 1
+        return elemento
+
+    def peek(self):
+        if self.isEmpty():
+            raise IndexError("Cola vacía")
+        return self.arreglo[self.inicio]
+
+    def isEmpty(self):
+        return self.cantidad == 0
+
+    def isFull(self):
+        return self.cantidad == self.n
+
+    def size(self):
+        return self.cantidad
